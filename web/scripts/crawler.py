@@ -16,7 +16,7 @@ bot = telegram.Bot(token=BOT_TOKEN)
 async def test():
 
     row, _ = Deal.objects.filter(created_at__lte=datetime.now() -
-    timedelta(days=1)).delete()
+    timedelta(days=7)).delete()
     print(row, "deals deleted")
 
     for item in soup.find_all("tr", {'class': ["list1", "list0"]}):
@@ -33,7 +33,7 @@ async def test():
             up_count = up_count.split("-")[0]
             up_count = int(up_count)
 
-            if up_count >= 10:
+            if '구글' in title and '기프트' in title:
                 if (Deal.objects.filter(link__iexact=link).count() == 0):
                     Deal(image_url=image, title=title, link=link,
                          reply_count=reply_count, up_count=up_count).save()
